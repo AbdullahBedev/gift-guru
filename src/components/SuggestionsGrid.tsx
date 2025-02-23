@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Icon } from '@iconify/react';
 import Confetti from 'react-confetti';
 import { LoadingAnimation } from './LoadingAnimation';
 import { FilterSidebar } from './FilterSidebar';
@@ -195,13 +196,14 @@ const WhyThisToggle = ({ reasoning }: { reasoning: Suggestion['reasoning'] }) =>
     <div className="absolute top-2 right-2 z-10">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`px-2 py-1 text-sm font-medium rounded-lg transition-colors
+        className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors flex items-center gap-2
           ${isHighContrast
             ? 'bg-white text-black hover:bg-gray-200'
             : 'bg-black/5 hover:bg-black/10 text-black'
           }`}
         aria-expanded={isOpen}
       >
+        <Icon icon="streamline-emojis:thinking-face" className="w-4 h-4" />
         Why This?
       </button>
 
@@ -216,7 +218,10 @@ const WhyThisToggle = ({ reasoning }: { reasoning: Suggestion['reasoning'] }) =>
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-black">Match Score</span>
+                <span className="text-sm font-medium text-black flex items-center gap-2">
+                  <Icon icon="streamline-emojis:sparkles" className="w-4 h-4" />
+                  Match Score
+                </span>
                 <span className="text-sm font-bold text-black">{reasoning.matchScore}%</span>
               </div>
               <ul className="space-y-2">
@@ -228,7 +233,7 @@ const WhyThisToggle = ({ reasoning }: { reasoning: Suggestion['reasoning'] }) =>
                     transition={{ delay: index * 0.1 }}
                     className="text-sm text-black/80 flex items-start gap-2"
                   >
-                    <span className="mt-1">•</span>
+                    <Icon icon="streamline-emojis:check-mark-button" className="w-4 h-4 mt-0.5" />
                     <span>{point}</span>
                   </motion.li>
                 ))}
@@ -313,184 +318,130 @@ export const SuggestionsGrid = () => {
   };
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <motion.div
-          key="loading"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          role="status"
-          aria-label="Loading suggestions"
-          className="min-h-[500px] flex items-center justify-center"
+    <div className="relative">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <Icon icon="streamline-emojis:magic-wand" className="w-8 h-8" />
+          Perfect Matches
+        </h2>
+        <button
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F5E1E5] text-black hover:bg-[#F5E1E5]/90 transition-colors"
         >
-          <ProgressIndicator />
-        </motion.div>
+          <Icon icon="streamline-emojis:control-knobs" className="w-5 h-5" />
+          Filters
+        </button>
+      </div>
+
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+          <LoadingAnimation />
+          <p className="text-lg flex items-center gap-2">
+            <Icon icon="streamline-emojis:crystal-ball" className="w-6 h-6 animate-pulse" />
+            Finding perfect gifts...
+          </p>
+        </div>
       ) : (
-        <div className="relative flex">
-          {/* Filter Toggle Button */}
-          <button
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className={`fixed left-0 top-1/2 transform -translate-y-1/2 p-2 rounded-r-lg shadow-lg z-10
-                     border border-l-0 focus:outline-none focus:ring-2 focus:ring-[#F5E1E5] focus:ring-offset-2
-                     transition-colors ${
-                       isHighContrast 
-                         ? 'bg-black text-white hover:bg-gray-900 border-white' 
-                         : 'bg-white text-black hover:bg-gray-50 border-gray-200'
-                     }`}
-            aria-expanded={isFilterOpen}
-            aria-controls="filter-sidebar"
-            aria-label={`${isFilterOpen ? 'Hide' : 'Show'} filters`}
-          >
-            <svg
-              className={`w-6 h-6 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockSuggestions.map((suggestion) => (
+            <motion.div
+              key={suggestion.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative group"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              />
-            </svg>
-          </button>
-
-          {/* Filter Sidebar */}
-          <FilterSidebar
-            isExpanded={isFilterOpen}
-            onFiltersChange={handleFiltersChange}
-          />
-
-          {/* Grid */}
-          <motion.div
-            key="suggestions"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
-            role="grid"
-            aria-label="Gift suggestions"
-          >
-            {showConfetti && (
-              <Confetti
-                numberOfPieces={100}
-                recycle={false}
-                colors={isHighContrast ? ['#FFFFFF', '#000000'] : ['var(--color-dark-pink)', 'var(--color-dark-yellow)', '#000000']}
-                confettiSource={{
-                  x: confettiPosition.x,
-                  y: confettiPosition.y,
-                  w: 0,
-                  h: 0,
-                }}
-              />
-            )}
-            
-            {filteredSuggestions.map((suggestion, index) => (
-              <motion.div
-                key={suggestion.id}
-                className="w-full"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.5,
-                  delay: index * 0.1
-                }}
-                whileHover={{ 
-                  scale: 1.03,
-                  transition: { duration: 0.2 }
-                }}
-                role="gridcell"
-                tabIndex={0}
-              >
-                <div 
-                  className={`relative w-full h-[320px] rounded-lg overflow-hidden shadow-sm hover:shadow-lg 
-                           transition-shadow duration-200 ${
-                             isHighContrast 
-                               ? 'bg-black text-white border-2 border-white' 
-                               : 'bg-white text-black border border-black'
-                           }`}
-                >
-                  <WhyThisToggle reasoning={suggestion.reasoning} />
-                  
-                  {/* Replace image placeholder with LazyImage */}
-                  <LazyImage
-                    src={suggestion.imageUrl}
-                    alt={suggestion.title}
-                    className="w-full h-40"
-                  />
-
-                  {/* Content */}
-                  <div className="p-4 space-y-3">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-medium text-lg leading-tight">{suggestion.title}</h3>
-                      <span className="text-sm font-medium">{suggestion.price}</span>
-                    </div>
-                    
-                    <p className={`text-sm line-clamp-2 ${
-                      isHighContrast ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      {suggestion.description}
-                    </p>
-
-                    <div className="flex items-center justify-between pt-2">
-                      <div className="flex items-center space-x-2" aria-label={`${suggestion.confidence}% confidence score`}>
-                        <ConfidenceBar confidence={suggestion.confidence} />
-                        <span className={`text-sm ${
-                          isHighContrast ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          {suggestion.confidence}%
-                        </span>
-                      </div>
-
-                      <div className="flex gap-2">
-                        <RippleButton
-                          onClick={(e) => handleSave(suggestion.id, e)}
-                          disabled={savedItems.has(suggestion.id)}
-                          ariaLabel={`${savedItems.has(suggestion.id) ? 'Already saved' : 'Save'} ${suggestion.title}`}
-                          className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                            savedItems.has(suggestion.id)
-                              ? isHighContrast
-                                ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
-                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                              : isHighContrast
-                                ? 'bg-white text-black hover:bg-gray-200'
-                                : 'bg-[#F5E1E5] hover:bg-[#f0d0d4] text-black'
-                          }`}
-                        >
-                          {savedItems.has(suggestion.id) ? 'Saved' : 'Save'}
-                        </RippleButton>
-
-                        <RippleButton
-                          onClick={() => handleShare(suggestion)}
-                          ariaLabel={`Share ${suggestion.title}`}
-                          className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                            isHighContrast
-                              ? 'bg-white text-black hover:bg-gray-200'
-                              : 'bg-black text-white hover:bg-gray-900'
-                          }`}
-                        >
-                          Share
-                        </RippleButton>
-                      </div>
+              <div className={`relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] ${
+                isHighContrast ? 'bg-gray-900' : 'bg-white'
+              }`}>
+                <WhyThisToggle reasoning={suggestion.reasoning} />
+                <LazyImage
+                  src={suggestion.imageUrl}
+                  alt={suggestion.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4 space-y-3">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-lg font-semibold">{suggestion.title}</h3>
+                    <span className="text-lg font-bold text-[#F5E1E5]">{suggestion.price}</span>
+                  </div>
+                  <p className="text-sm text-gray-600">{suggestion.description}</p>
+                  <div className="flex items-center justify-between pt-2">
+                    <ConfidenceBar confidence={suggestion.confidence} />
+                    <div className="flex gap-2">
+                      <RippleButton
+                        onClick={(e) => handleSave(suggestion.id, e)}
+                        className={`p-2 rounded-full transition-colors ${
+                          savedItems.has(suggestion.id)
+                            ? 'bg-[#F5E1E5] text-white'
+                            : 'bg-gray-100 hover:bg-gray-200'
+                        }`}
+                        ariaLabel={`Save ${suggestion.title}`}
+                      >
+                        <Icon 
+                          icon={savedItems.has(suggestion.id) 
+                            ? "streamline-emojis:heart-suit" 
+                            : "streamline-emojis:heart-suit-outline"} 
+                          className="w-5 h-5" 
+                        />
+                      </RippleButton>
+                      <RippleButton
+                        onClick={() => handleShare(suggestion)}
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                        ariaLabel={`Share ${suggestion.title}`}
+                      >
+                        <Icon icon="streamline-emojis:incoming-envelope" className="w-5 h-5" />
+                      </RippleButton>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Share Modal */}
-          <ShareModal
-            isOpen={shareModalData.isOpen}
-            onClose={() => setShareModalData(prev => ({ ...prev, isOpen: false }))}
-            title={shareModalData.title}
-            url={shareModalData.url}
-          />
+              </div>
+            </motion.div>
+          ))}
         </div>
       )}
-    </AnimatePresence>
+
+      <AnimatePresence>
+        {isFilterOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25 }}
+            className="fixed inset-y-0 right-0 w-80 bg-white shadow-xl p-6 z-50"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Icon icon="streamline-emojis:control-knobs" className="w-5 h-5" />
+                Filters
+              </h3>
+              <button
+                onClick={() => setIsFilterOpen(false)}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <Icon icon="streamline-emojis:cross-mark" className="w-5 h-5" />
+              </button>
+            </div>
+            <FilterSidebar onFiltersChange={handleFiltersChange} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {showConfetti && (
+        <Confetti
+          numberOfPieces={50}
+          recycle={false}
+          onConfettiComplete={() => setShowConfetti(false)}
+          style={{
+            position: 'fixed',
+            pointerEvents: 'none',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+          }}
+        />
+      )}
+    </div>
   );
 }; 
