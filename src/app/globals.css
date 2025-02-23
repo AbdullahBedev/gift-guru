@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-dark-pink: #FF1493;
+  --color-pink: #FE90EA;
+  --color-dark-yellow: #FFC901;
+  --shadow-green: rgba(0, 255, 0, 0.1);
+  --primary-color: var(--color-dark-pink);
+  --secondary-color: var(--color-dark-yellow);
+}
+
+/* High Contrast Mode Styles */
+html.high-contrast {
+  --primary-color: #FFFFFF;
+  --secondary-color: #FFFFFF;
+}
+
+html.high-contrast body {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Focus styles for better accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+/* Skip transitions for people who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black antialiased;
+  }
+}
+
+@layer components {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 340 82% 52%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 340 82% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-white border border-black rounded-lg px-6 py-3.5 
+           text-black font-semibold text-base leading-5 
+           cursor-pointer inline-block text-center 
+           transition-all duration-300
+           select-none
+           hover:shadow-[0_8px_30px_var(--shadow-green)]
+           active:bg-[#F7F7F7] active:border-black active:scale-[0.96]
+           focus-visible:shadow-[#000000_0_0_0_2px,rgba(255,255,255,0.8)_0_0_0_4px]
+           disabled:border-[#DDDDDD] disabled:text-[#DDDDDD] disabled:cursor-not-allowed
+           disabled:hover:shadow-none;
+  }
+
+  .card {
+    @apply bg-white/80 backdrop-blur-sm border border-black 
+           rounded-lg p-6 
+           transition-all duration-300
+           hover:shadow-[0_8px_30px_var(--shadow-green)];
+  }
+}
+
+@layer utilities {
+  .primary-color {
+    background-color: var(--color-dark-pink);
+  }
+  
+  .secondary-color {
+    background-color: var(--color-dark-yellow);
+  }
+
+  .gradient-button {
+    @apply btn border-none text-white
+           bg-[var(--color-dark-pink)]
+           hover:shadow-[0_8px_30px_rgba(255,20,147,0.3)]
+           active:shadow-none
+           transition-all duration-300;
+  }
+  
+  .gradient-button:hover {
+    background-color: var(--color-pink);
+  }
+}
