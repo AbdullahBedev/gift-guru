@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@iconify-icons/mdi": "^1.2.48",
+    "@iconify-icons/ph": "^1.2.5",
+    "@iconify-json/streamline-emojis": "^1.2.1",
     "@iconify/react": "^5.2.0",
+    "@iconify/types": "^2.0.0",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
@@ -24,6 +28,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@iconify/utils": "^2.3.0",
     "@shadcn/ui": "^0.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",

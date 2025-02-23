@@ -371,9 +371,9 @@ export const SuggestionsGrid = () => {
                     <div className="flex gap-2">
                       <RippleButton
                         onClick={(e) => handleSave(suggestion.id, e)}
-                        className={`p-2 rounded-full transition-colors ${
+                        className={`p-2 rounded-full transition-colors flex items-center justify-center min-w-[36px] min-h-[36px] ${
                           savedItems.has(suggestion.id)
-                            ? 'bg-[#F5E1E5] text-white'
+                            ? 'bg-[#F5E1E5] text-black'
                             : 'bg-gray-100 hover:bg-gray-200'
                         }`}
                         ariaLabel={`Save ${suggestion.title}`}
@@ -382,15 +382,22 @@ export const SuggestionsGrid = () => {
                           icon={savedItems.has(suggestion.id) 
                             ? "streamline-emojis:heart-suit" 
                             : "streamline-emojis:heart-suit-outline"} 
-                          className="w-5 h-5" 
+                          className="w-5 h-5"
+                          style={{ display: 'inline-block' }}
+                          inline={true}
                         />
                       </RippleButton>
                       <RippleButton
                         onClick={() => handleShare(suggestion)}
-                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center min-w-[36px] min-h-[36px]"
                         ariaLabel={`Share ${suggestion.title}`}
                       >
-                        <Icon icon="streamline-emojis:incoming-envelope" className="w-5 h-5" />
+                        <Icon 
+                          icon="streamline-emojis:incoming-envelope" 
+                          className="w-5 h-5"
+                          style={{ display: 'inline-block' }}
+                          inline={true}
+                        />
                       </RippleButton>
                     </div>
                   </div>
