@@ -320,13 +320,13 @@ export const SuggestionsGrid = () => {
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold flex items-center gap-2">
+        <h2 className="text-2xl font-bold flex items-center gap-2 font-magilio">
           <Icon icon="streamline-emojis:magic-wand" className="w-8 h-8" />
           Perfect Matches
         </h2>
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F5E1E5] text-black hover:bg-[#F5E1E5]/90 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F5E1E5] text-black hover:bg-[#F5E1E5]/90 transition-colors font-magilio"
         >
           <Icon icon="streamline-emojis:control-knobs" className="w-5 h-5" />
           Filters
@@ -336,7 +336,7 @@ export const SuggestionsGrid = () => {
       {isLoading ? (
         <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
           <LoadingAnimation />
-          <p className="text-lg flex items-center gap-2">
+          <p className="text-lg flex items-center gap-2 font-magilio">
             <Icon icon="streamline-emojis:crystal-ball" className="w-6 h-6 animate-pulse" />
             Finding perfect gifts...
           </p>
@@ -362,8 +362,8 @@ export const SuggestionsGrid = () => {
                 />
                 <div className="p-4 space-y-3">
                   <div className="flex items-start justify-between">
-                    <h3 className="text-lg font-semibold">{suggestion.title}</h3>
-                    <span className="text-lg font-bold text-[#F5E1E5]">{suggestion.price}</span>
+                    <h3 className="text-lg font-semibold font-magilio">{suggestion.title}</h3>
+                    <span className="text-lg font-bold text-[#F5E1E5] font-magilio">{suggestion.price}</span>
                   </div>
                   <p className="text-sm text-gray-600">{suggestion.description}</p>
                   <div className="flex items-center justify-between pt-2">
@@ -371,32 +371,30 @@ export const SuggestionsGrid = () => {
                     <div className="flex gap-2">
                       <RippleButton
                         onClick={(e) => handleSave(suggestion.id, e)}
-                        className={`p-2 rounded-full transition-colors flex items-center justify-center min-w-[36px] min-h-[36px] ${
+                        className={`p-2 rounded-full transition-all duration-200 flex items-center justify-center w-10 h-10 ${
                           savedItems.has(suggestion.id)
-                            ? 'bg-[#F5E1E5] text-black'
-                            : 'bg-gray-100 hover:bg-gray-200'
+                            ? 'bg-[#F5E1E5] text-black hover:bg-[#F5E1E5]/80'
+                            : 'bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-black'
                         }`}
-                        ariaLabel={`Save ${suggestion.title}`}
+                        ariaLabel={`${savedItems.has(suggestion.id) ? 'Remove from' : 'Save to'} favorites`}
                       >
                         <Icon 
                           icon={savedItems.has(suggestion.id) 
-                            ? "streamline-emojis:heart-suit" 
-                            : "streamline-emojis:heart-suit-outline"} 
-                          className="w-5 h-5"
-                          style={{ display: 'inline-block' }}
-                          inline={true}
+                            ? "material-symbols:favorite" 
+                            : "material-symbols:favorite-outline"} 
+                          width="20" 
+                          height="20"
                         />
                       </RippleButton>
                       <RippleButton
                         onClick={() => handleShare(suggestion)}
-                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center min-w-[36px] min-h-[36px]"
+                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 flex items-center justify-center w-10 h-10 text-gray-500 hover:text-black"
                         ariaLabel={`Share ${suggestion.title}`}
                       >
                         <Icon 
-                          icon="streamline-emojis:incoming-envelope" 
-                          className="w-5 h-5"
-                          style={{ display: 'inline-block' }}
-                          inline={true}
+                          icon="material-symbols:share-outline" 
+                          width="20" 
+                          height="20"
                         />
                       </RippleButton>
                     </div>

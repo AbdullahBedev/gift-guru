@@ -1,32 +1,70 @@
+@import url('https://fonts.cdnfonts.com/css/magilio');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Borna Font Declarations */
+@font-face {
+  font-family: 'Borna';
+  src: url('/fonts/Borna Medium Webfont/webfontkit/borna-medium-webfont.woff2') format('woff2'),
+       url('/fonts/Borna Medium Webfont/webfontkit/borna-medium-webfont.woff') format('woff'),
+       url('/fonts/Borna Medium Webfont/webfontkit/borna-medium-webfont.ttf') format('truetype'),
+       url('/fonts/Borna Medium Webfont/webfontkit/borna-medium-webfont.eot?#iefix') format('embedded-opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Core Colors */
   --color-black: #000000;
   --color-white: #FFFFFF;
-  --color-dark-pink: #FF1493;
-  --color-pink: #FE90EA;
-  --color-dark-yellow: #FFC901;
-  --shadow-green: rgba(0, 255, 0, 0.1);
-  --primary-color: var(--color-dark-pink);
-  --secondary-color: var(--color-dark-yellow);
+  --color-pink: #FF1493; /* Full Pink */
+  --color-green: #E0FFE0; /* Cold Light Green */
+  
+  /* Semantic Colors */
+  --primary-color: var(--color-pink);
+  --secondary-color: var(--color-green);
+  --text-primary: var(--color-black);
+  --text-inverse: var(--color-white);
+  --background-primary: var(--color-white);
+  --background-secondary: var(--color-green);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  
+  /* Typography */
+  --font-borna: 'Borna', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-magilio: 'Magilio', sans-serif;
+  
+  /* Typography Scale */
+  --h1-size: clamp(2.5rem, 5vw, 3.5rem);
+  --h2-size: clamp(2rem, 4vw, 2.75rem);
+  --h3-size: clamp(1.75rem, 3vw, 2.25rem);
+  --h4-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  --body-size: 1rem;
+  --small-size: 0.875rem;
+  --heading-line-height: 1.2;
+  --body-line-height: 1.6;
 }
 
 /* High Contrast Mode Styles */
 html.high-contrast {
-  --primary-color: #FFFFFF;
-  --secondary-color: #FFFFFF;
-}
-
-html.high-contrast body {
-  background-color: #000000;
-  color: #FFFFFF;
+  --primary-color: var(--color-white);
+  --secondary-color: var(--color-white);
+  --text-primary: var(--color-white);
+  --text-inverse: var(--color-black);
+  --background-primary: var(--color-black);
+  --background-secondary: var(--color-black);
 }
 
 /* Focus styles for better accessibility */
 *:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--color-pink);
   outline-offset: 2px;
 }
 
@@ -45,14 +83,101 @@ html.high-contrast body {
 }
 
 @layer base {
+  * {
+    @apply border-black;
+  }
+
   body {
     @apply bg-white text-black antialiased;
+    font-family: var(--font-inter);
+    font-size: var(--body-size);
+    line-height: var(--body-line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    font-family: var(--font-borna);
+  }
+  
+  /* Typography Scale */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-borna);
+    line-height: var(--heading-line-height);
+    letter-spacing: -0.02em;
+    @apply font-medium tracking-tight;
+  }
+  
+  h1 {
+    font-size: var(--h1-size);
+    @apply mb-6 font-bold;
+    letter-spacing: -0.03em;
+  }
+  
+  h2 {
+    font-size: var(--h2-size);
+    @apply mb-5 font-bold;
+    letter-spacing: -0.02em;
+  }
+  
+  h3 {
+    font-size: var(--h3-size);
+    @apply mb-4;
+  }
+  
+  h4, h5, h6 {
+    font-size: var(--h4-size);
+    @apply mb-3;
+  }
+
+  p {
+    @apply mb-4 text-base leading-relaxed;
+    font-family: var(--font-inter);
+  }
+
+  /* Small text elements */
+  small, .text-small {
+    font-size: var(--small-size);
+    @apply block leading-normal;
+    font-family: var(--font-borna);
+  }
+
+  /* Form Elements */
+  label {
+    font-family: var(--font-borna);
+    @apply text-sm font-medium mb-1 block;
+  }
+
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+    text-underline-offset: 0.2em;
   }
 }
 
 @layer components {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .btn {
+    @apply bg-white border border-black rounded-lg px-6 py-3.5 
+           text-black font-semibold text-base leading-5 
+           cursor-pointer inline-block text-center 
+           transition-all duration-300
+           select-none
+           hover:shadow-[0_8px_30px_var(--shadow-color)]
+           active:bg-[#F7F7F7] active:border-black active:scale-[0.96]
+           focus-visible:shadow-[#000000_0_0_0_2px,rgba(255,255,255,0.8)_0_0_0_4px]
+           disabled:border-[#E0FFE0] disabled:text-[#000000] disabled:cursor-not-allowed
+           disabled:hover:shadow-none;
+  }
+
+  .card {
+    @apply bg-white/80 backdrop-blur-sm border border-black 
+           rounded-lg p-6 
+           transition-all duration-300
+           hover:shadow-[0_8px_30px_var(--shadow-color)];
   }
 }
 
@@ -83,52 +208,25 @@ html.high-contrast body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-}
-
-@layer components {
-  .btn {
-    @apply bg-white border border-black rounded-lg px-6 py-3.5 
-           text-black font-semibold text-base leading-5 
-           cursor-pointer inline-block text-center 
-           transition-all duration-300
-           select-none
-           hover:shadow-[0_8px_30px_var(--shadow-green)]
-           active:bg-[#F7F7F7] active:border-black active:scale-[0.96]
-           focus-visible:shadow-[#000000_0_0_0_2px,rgba(255,255,255,0.8)_0_0_0_4px]
-           disabled:border-[#DDDDDD] disabled:text-[#DDDDDD] disabled:cursor-not-allowed
-           disabled:hover:shadow-none;
-  }
-
-  .card {
-    @apply bg-white/80 backdrop-blur-sm border border-black 
-           rounded-lg p-6 
-           transition-all duration-300
-           hover:shadow-[0_8px_30px_var(--shadow-green)];
-  }
-}
-
 @layer utilities {
   .primary-color {
-    background-color: var(--color-dark-pink);
+    background-color: var(--color-pink);
   }
   
   .secondary-color {
-    background-color: var(--color-dark-yellow);
+    background-color: var(--color-green);
   }
 
   .gradient-button {
     @apply btn border-none text-white
-           bg-[var(--color-dark-pink)]
+           bg-[var(--color-pink)]
            hover:shadow-[0_8px_30px_rgba(255,20,147,0.3)]
            active:shadow-none
            transition-all duration-300;
   }
   
   .gradient-button:hover {
-    background-color: var(--color-pink);
+    background-color: var(--color-green);
+    color: var(--color-black);
   }
 }

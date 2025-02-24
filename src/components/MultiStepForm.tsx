@@ -95,10 +95,10 @@ export const MultiStepForm = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-6">
               <Icon icon="streamline-emojis:sparkling-heart" className="w-8 h-8" />
-              <h2 className="text-xl font-semibold">Let's Get Started! ✨</h2>
+              <h2 className="text-xl font-semibold font-magilio">Let's Get Started! ✨</h2>
             </div>
             <div className="relative">
-              <label htmlFor="recipientName" className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <label htmlFor="recipientName" className="block text-sm font-medium mb-1 flex items-center gap-2 font-magilio">
                 <Icon icon="streamline-emojis:waving-hand" className="w-5 h-5" />
                 Recipient's Name
               </label>
@@ -112,7 +112,7 @@ export const MultiStepForm = () => {
               />
             </div>
             <div className="relative">
-              <label htmlFor="recipientAge" className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <label htmlFor="recipientAge" className="block text-sm font-medium mb-1 flex items-center gap-2 font-magilio">
                 <Icon icon="streamline-emojis:birthday-cake" className="w-5 h-5" />
                 Age Group
               </label>
@@ -136,10 +136,10 @@ export const MultiStepForm = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-6">
               <Icon icon="streamline-emojis:party-popper" className="w-8 h-8" />
-              <h2 className="text-xl font-semibold">Tell us more! 🎉</h2>
+              <h2 className="text-xl font-semibold font-magilio">Tell us more! 🎉</h2>
             </div>
             <div className="relative">
-              <label htmlFor="occasion" className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <label htmlFor="occasion" className="block text-sm font-medium mb-1 flex items-center gap-2 font-magilio">
                 <Icon icon="streamline-emojis:wrapped-gift" className="w-5 h-5" />
                 Occasion
               </label>
@@ -157,7 +157,7 @@ export const MultiStepForm = () => {
               </select>
             </div>
             <div className="relative">
-              <label htmlFor="relationship" className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <label htmlFor="relationship" className="block text-sm font-medium mb-1 flex items-center gap-2 font-magilio">
                 <Icon icon="streamline-emojis:red-heart" className="w-5 h-5" />
                 Relationship
               </label>
@@ -181,10 +181,10 @@ export const MultiStepForm = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-2 mb-6">
               <Icon icon="streamline-emojis:magnifying-glass" className="w-8 h-8" />
-              <h2 className="text-xl font-semibold">Last step! 🎯</h2>
+              <h2 className="text-xl font-semibold font-magilio">Last step! 🎯</h2>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+              <label className="block text-sm font-medium mb-2 flex items-center gap-2 font-magilio">
                 <Icon icon="streamline-emojis:mobile-phone" className="w-5 h-5" />
                 Social Media Profile
               </label>
@@ -286,7 +286,7 @@ export const MultiStepForm = () => {
             </div>
 
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium mb-1">
+              <label htmlFor="notes" className="block text-sm font-medium mb-1 font-magilio">
                 Additional Notes
               </label>
               <textarea
@@ -317,7 +317,7 @@ export const MultiStepForm = () => {
       </div>
 
       <div className="mb-6 text-center">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold font-magilio">
           Step {step}: {step === 1 ? 'Recipient Details' : step === 2 ? 'Occasion' : 'Social Links'}
         </h2>
       </div>
@@ -339,7 +339,7 @@ export const MultiStepForm = () => {
           <button
             type="button"
             onClick={handleBack}
-            className={`px-4 py-2 rounded transition-colors ${
+            className={`px-4 py-2 rounded transition-colors font-magilio ${
               step === 1
                 ? 'opacity-50 cursor-not-allowed bg-gray-200'
                 : 'bg-gray-200 hover:bg-gray-300'
@@ -351,7 +351,7 @@ export const MultiStepForm = () => {
           <button
             type={step === 3 ? 'submit' : 'button'}
             onClick={step === 3 ? undefined : handleNext}
-            className={`px-4 py-2 rounded transition-colors ${
+            className={`px-4 py-2 rounded transition-colors font-magilio ${
               step === 3 && !isLinkValid
                 ? 'bg-gray-200 cursor-not-allowed'
                 : 'bg-primary hover:bg-primary/90 text-white'

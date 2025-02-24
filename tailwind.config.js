@@ -6,8 +6,22 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: '#000000',
+      white: '#FFFFFF',
+      pink: '#FF1493',
+      green: '#E0FFE0',
+      primary: '#FF1493',
+      secondary: '#E0FFE0',
+      border: '#000000',
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -18,45 +32,31 @@ module.exports = {
     extend: {
       fontFamily: {
         geist: ['var(--font-geist)', 'system-ui', 'sans-serif'],
+        borna: ['Borna', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        inter: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: 'var(--color-dark-pink)',
-          light: 'var(--color-pink)',
-          foreground: 'var(--color-white)',
-        },
-        secondary: {
-          DEFAULT: 'var(--color-dark-yellow)',
-          foreground: 'var(--color-black)',
-        },
-        accent: {
-          DEFAULT: "var(--color-pink)",
-          foreground: "var(--color-black)",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+      fontSize: {
+        'display': ['clamp(3rem, 6vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+        'h1': ['clamp(2.5rem, 5vw, 3.5rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h2': ['clamp(2rem, 4vw, 2.75rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h3': ['clamp(1.75rem, 3vw, 2.25rem)', { lineHeight: '1.3' }],
+        'h4': ['clamp(1.5rem, 2.5vw, 1.75rem)', { lineHeight: '1.4' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
+        'body': ['1rem', { lineHeight: '1.6' }],
+        'small': ['0.875rem', { lineHeight: '1.4' }],
+        'xs': ['0.75rem', { lineHeight: '1.4' }],
+      },
+      letterSpacing: {
+        'tightest': '-0.03em',
+        'tighter': '-0.02em',
+        'tight': '-0.01em',
+      },
+      lineHeight: {
+        'heading': '1.2',
+        'body': '1.6',
       },
       boxShadow: {
-        'custom': '0 4px 14px var(--shadow-green)',
+        'custom': '0 4px 14px rgba(0, 0, 0, 0.1)',
       },
       borderRadius: {
         lg: "var(--radius)",

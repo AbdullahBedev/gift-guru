@@ -49,7 +49,7 @@ export const FilterSidebar: React.FC<FilterProps> = ({ onFiltersChange }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+        <h4 className="text-sm font-medium mb-3 flex items-center gap-2 font-magilio">
           <Icon icon="streamline-emojis:money-bag" className="w-5 h-5" />
           Price Range
         </h4>
@@ -71,14 +71,14 @@ export const FilterSidebar: React.FC<FilterProps> = ({ onFiltersChange }) => {
             className="w-full"
           />
         </div>
-        <div className="flex justify-between mt-2 text-sm">
+        <div className="flex justify-between mt-2 text-sm font-magilio">
           <span>${priceRange[0]}</span>
           <span>${priceRange[1]}</span>
         </div>
       </div>
 
       <div>
-        <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+        <h4 className="text-sm font-medium mb-3 flex items-center gap-2 font-magilio">
           <Icon icon="streamline-emojis:bookmark-tabs" className="w-5 h-5" />
           Categories
         </h4>
@@ -87,7 +87,7 @@ export const FilterSidebar: React.FC<FilterProps> = ({ onFiltersChange }) => {
             <button
               key={category.id}
               onClick={() => handleCategoryToggle(category.id)}
-              className={`w-full px-3 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+              className={`w-full px-3 py-2 rounded-lg flex items-center gap-2 transition-colors font-magilio ${
                 selectedCategories.includes(category.id)
                   ? 'bg-[#F5E1E5] text-black'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
@@ -103,7 +103,7 @@ export const FilterSidebar: React.FC<FilterProps> = ({ onFiltersChange }) => {
       <div>
         <button
           onClick={handleEcoFriendlyToggle}
-          className={`w-full px-3 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+          className={`w-full px-3 py-2 rounded-lg flex items-center gap-2 transition-colors font-magilio ${
             isEcoFriendly
               ? 'bg-[#F5E1E5] text-black'
               : 'bg-gray-100 hover:bg-gray-200 text-gray-700'

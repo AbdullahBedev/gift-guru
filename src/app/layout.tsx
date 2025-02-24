@@ -4,7 +4,12 @@ import { GeistSans } from 'geist/font/sans'
 import { Inter } from 'next/font/google'
 import { Providers } from '@/components/Providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: 'Gift Guru - AI-Powered Gift Recommendations',
@@ -18,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className={`${GeistSans.className} antialiased bg-white`}>
+    <html lang="en" className={`${GeistSans.variable} ${inter.variable} antialiased`}>
+      <body className={`font-inter bg-white text-black selection:bg-primary selection:text-white`}>
         <Providers>
           {children}
         </Providers>
